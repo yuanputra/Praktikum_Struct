@@ -1,15 +1,20 @@
 #include <iostream>
 #include <string>
+#include <conio.h>
 using namespace std;
+
+enum setBulan {januari,februari,maret,april,mei,juni,juli,agustus,september,oktober,november,desember};
 
 struct kalender
 {
 	int tanggal;
-	string bulan;
+	setBulan bulan;
 	int tahun;
+	bool kabisat;
+	string month;
 };
 
-void Hari_ini()
+kalender Hari_ini()
 {
 	kalender hari;
 	cout<<"Masukan tanggal hari ini: ";
@@ -17,10 +22,31 @@ void Hari_ini()
 bulanlagi:;
 	cout<<"Masukan bulan hari ini: ";
 	cin.sync();
-	getline(cin,hari.bulan);
-	if((hari.bulan == "januari")||(hari.bulan == "februari")||(hari.bulan == "maret")||(hari.bulan == "april")||(hari.bulan == "mei")||(hari.bulan == "juni")||
-		(hari.bulan == "juli")||(hari.bulan == "agustus")||(hari.bulan == "september")||(hari.bulan == "oktober")||(hari.bulan == "november")||(hari.bulan == "desember"))
-		true;
+	cin>>hari.month;
+	if(hari.month == "januari")
+		hari.bulan = januari;
+	else if(hari.month == "februari")
+		hari.bulan = februari;
+	else if(hari.month == "maret")
+		hari.bulan = maret;
+	else if(hari.month == "april")
+		hari.bulan = april;
+	else if(hari.month == "mei")
+		hari.bulan = mei;
+	else if(hari.month == "juni")
+		hari.bulan = juni;
+	else if(hari.month == "juli")
+		hari.bulan = juli;
+	else if(hari.month == "agustus")
+		hari.bulan = agustus;
+	else if(hari.month == "september")
+		hari.bulan = september;
+	else if(hari.month == "oktober")
+		hari.bulan = oktober;
+	else if(hari.month == "november")
+		hari.bulan = november;
+	else if(hari.month == "desember")
+		hari.bulan = desember;
 	else
 	{
 		cout<<"Bulan tidak terdaftar"<<endl<<endl;
@@ -28,58 +54,185 @@ bulanlagi:;
 	}
 	cout<<"Masukan tahun hari ini: ";
 	cin>>hari.tahun;
+	cout<<endl;
 	
-	if(((hari.bulan == "januari")||(hari.bulan == "maret")||(hari.bulan == "mei")||(hari.bulan == "juli")||(hari.bulan == "agustus")||(hari.bulan == "oktober")||(hari.bulan == "desember"))&&(hari.tanggal>31))
+	if(((hari.bulan == januari)||(hari.bulan == maret)||(hari.bulan == mei)||(hari.bulan == juli)||(hari.bulan == agustus)||(hari.bulan == oktober)||(hari.bulan == desember))&&(hari.tanggal>31))
 	{
-		cout<<"Tanggal dalam bulan "<<hari.bulan<<" hanya sampai 31"<<endl;
+		cout<<"Tanggal dalam bulan "<<hari.month<<" hanya sampai 31"<<endl;
 		do
 		{
-			cout<<"Masukan tanggal hari ini: ";
+			cout<<"\nMasukan tanggal hari ini: ";
 			cin>>hari.tanggal;
 			if(hari.tanggal>31)
-				cout<<"Tanggal dalam bulan "<<hari.bulan<<" hanya sampai 31"<<endl<<endl;
+			{
+				cout<<"Tanggal dalam bulan "<<hari.month<<" hanya sampai 31"<<endl<<endl;
+			}
 		} while(hari.tanggal>31);
 	}
-	else if(((hari.bulan == "april")||(hari.bulan == "juni")||(hari.bulan == "september")||(hari.bulan == "november"))&&(hari.tanggal>30))
+	else if(((hari.bulan == april)||(hari.bulan == juni)||(hari.bulan == september)||(hari.bulan == november))&&(hari.tanggal>30))
 	{
-		cout<<"Tanggal dalam bulan "<<hari.bulan<<" hanya sampai 30"<<endl;
+		cout<<"Tanggal dalam bulan "<<hari.month<<" hanya sampai 30"<<endl;
 		do
 		{
-			cout<<"Masukan tanggal hari ini: ";
+			cout<<"\nMasukan tanggal hari ini: ";
 			cin>>hari.tanggal;
 			if(hari.tanggal>30)
-				cout<<"Tanggal dalam bulan "<<hari.bulan<<" hanya sampai 30"<<endl<<endl;
+				cout<<"Tanggal dalam bulan "<<hari.month<<" hanya sampai 30"<<endl<<endl;
 		} while(hari.tanggal>30);
 	}
-	else if(hari.bulan == "februari")
+	else if(hari.bulan == februari)
 	{
-		if((hari.tahun%4 == 0)&&(hari.tanggal>29))
+		if(hari.tahun%4 == 0)
 		{
-			cout<<"Tanggal dalam bulan februari tahun kabisat hanya sampai 29"<<endl;
-			do
+			hari.kabisat = true;
+			if(hari.tanggal>29)
 			{
-				cout<<"Masukan tanggal hari ini: ";
-				cin>>hari.tanggal;
-				if(hari.tanggal>29)
-					cout<<"Tanggal dalam bulan februari tahun kabisat hanya sampai 29"<<endl<<endl;
-			} while(hari.tanggal>29);
+				cout<<"Tanggal dalam bulan februari tahun kabisat hanya sampai 29"<<endl;
+				do
+				{
+					cout<<"\nMasukan tanggal hari ini: ";
+					cin>>hari.tanggal;
+					if(hari.tanggal>29)
+						cout<<"Tanggal dalam bulan februari tahun kabisat hanya sampai 29"<<endl<<endl;
+				} while(hari.tanggal>29);
+			}
 		}
-		else if((hari.tahun%4 != 0)&&(hari.tanggal>28))
+		else if(hari.tahun%4 != 0)
 		{
-			cout<<"Tanggal dalam bulan februari hanya sampai 28"<<endl;
-			do
+			hari.kabisat = false;
+			if(hari.tanggal>28)
 			{
-				cout<<"Masukan tanggal hari ini: ";
-				cin>>hari.tanggal;
-				if(hari.tanggal>28)
-					cout<<"Tanggal dalam bulan februari hanya sampai 28"<<endl<<endl;
-			} while(hari.tanggal>28);
+				cout<<"Tanggal dalam bulan februari bukan tahun kabisat hanya sampai 28"<<endl;
+				do
+				{
+					cout<<"\nMasukan tanggal hari ini: ";
+					cin>>hari.tanggal;
+					if(hari.tanggal>28)
+						cout<<"Tanggal dalam bulan februari bukan tahun kabisat hanya sampai 28"<<endl<<endl;
+				} while(hari.tanggal>28);
+			}
 		}
 	}
-	cout<<endl<<endl;
+	getch();
+	system("cls");
+	return hari;
+}
+
+kalender Hari_esok()
+{
+	kalender hari = Hari_ini();
+	int bulan=99;
+
+	if((hari.bulan == februari)&&(hari.kabisat == true))
+	{
+		if(hari.tanggal==29)
+		{
+			hari.tanggal = 1;
+			bulan = hari.bulan+1;
+		}
+		else
+			hari.tanggal +=1;
+	}
+	else if((hari.bulan == februari)&&(hari.kabisat == false))
+	{
+		if(hari.tanggal==28)
+		{
+			hari.tanggal = 1;
+			bulan = hari.bulan+1;
+		}
+		else
+			hari.tanggal +=1;
+	}
+	else if((hari.bulan == januari)||(hari.bulan == maret)||(hari.bulan == mei)||(hari.bulan == juli)||(hari.bulan == agustus)||(hari.bulan == oktober))
+	{
+		if(hari.tanggal==31)
+		{
+			hari.tanggal = 1;
+			bulan = hari.bulan+1;
+		}
+		else
+			hari.tanggal += 1;
+	}
+	else if((hari.bulan == april)||(hari.bulan == juni)||(hari.bulan == september)||(hari.bulan == november))
+	{
+		if(hari.tanggal==30)
+		{
+			hari.tanggal = 1;
+			bulan = hari.bulan+1;
+		}
+		else 
+			hari.tanggal +=1;
+	}
+	else if(hari.bulan == desember)
+	{
+		if(hari.tanggal==31)
+		{
+			hari.tanggal = 1;
+			bulan = 0;
+			hari.tahun += 1;
+		}
+		else
+			hari.tanggal +=1;
+	}
+
+	if (bulan == 0)
+		hari.month = "januari";
+	else if(bulan == 1)
+		hari.month = "februari";
+	else if(bulan == 2)
+		hari.month = "maret";
+	else if(bulan == 3)
+		hari.month = "april";
+	else if(bulan == 4)
+		hari.month = "mei";
+	else if(bulan == 5)
+		hari.month = "juni";
+	else if(bulan == 6)
+		hari.month = "juli";
+	else if(bulan == 7)
+		hari.month = "agustus";
+	else if(bulan == 8)
+		hari.month = "september";
+	else if(bulan == 9)
+		hari.month = "oktober";
+	else if(bulan == 10)
+		hari.month = "november";
+	else if(bulan == 11)
+		hari.month = "desember";
+	else
+		true;
+	
+	cout<<"Tanggal besok adalah: "<<endl;
+	cout<<hari.tanggal<<"/"<<hari.month<<"/"<<hari.tahun<<endl<<endl;
+	getch();
+	system("cls");
+	return hari;
 }
 
 void main()
 {
-	Hari_ini();
+menu:;
+	int pilih;
+	cout<<"Menu Kalender : "<<endl<<endl;
+	cout<<"1. Hari ini"<<endl;
+	cout<<"2. Hari esok"<<endl;
+	cout<<"3. Keluar"<<endl<<endl;
+	cout<<"Pilih menu: ";
+	cin>>pilih;
+	system("cls");
+
+	if(pilih == 1)
+	{
+		Hari_ini();
+		goto menu;
+	}
+	else if(pilih == 2)
+	{
+		Hari_esok();
+		goto menu;
+	}
+	else
+	{
+		exit(0);
+	}
 }
