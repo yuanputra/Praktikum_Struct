@@ -1,0 +1,85 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct kalender
+{
+	int tanggal;
+	string bulan;
+	int tahun;
+};
+
+void Hari_ini()
+{
+	kalender hari;
+	cout<<"Masukan tanggal hari ini: ";
+	cin>>hari.tanggal;
+bulanlagi:;
+	cout<<"Masukan bulan hari ini: ";
+	cin.sync();
+	getline(cin,hari.bulan);
+	if((hari.bulan == "januari")||(hari.bulan == "februari")||(hari.bulan == "maret")||(hari.bulan == "april")||(hari.bulan == "mei")||(hari.bulan == "juni")||
+		(hari.bulan == "juli")||(hari.bulan == "agustus")||(hari.bulan == "september")||(hari.bulan == "oktober")||(hari.bulan == "november")||(hari.bulan == "desember"))
+		true;
+	else
+	{
+		cout<<"Bulan tidak terdaftar"<<endl<<endl;
+		goto bulanlagi;
+	}
+	cout<<"Masukan tahun hari ini: ";
+	cin>>hari.tahun;
+	
+	if(((hari.bulan == "januari")||(hari.bulan == "maret")||(hari.bulan == "mei")||(hari.bulan == "juli")||(hari.bulan == "agustus")||(hari.bulan == "oktober")||(hari.bulan == "desember"))&&(hari.tanggal>31))
+	{
+		cout<<"Tanggal dalam bulan "<<hari.bulan<<" hanya sampai 31"<<endl;
+		do
+		{
+			cout<<"Masukan tanggal hari ini: ";
+			cin>>hari.tanggal;
+			if(hari.tanggal>31)
+				cout<<"Tanggal dalam bulan "<<hari.bulan<<" hanya sampai 31"<<endl<<endl;
+		} while(hari.tanggal>31);
+	}
+	else if(((hari.bulan == "april")||(hari.bulan == "juni")||(hari.bulan == "september")||(hari.bulan == "november"))&&(hari.tanggal>30))
+	{
+		cout<<"Tanggal dalam bulan "<<hari.bulan<<" hanya sampai 30"<<endl;
+		do
+		{
+			cout<<"Masukan tanggal hari ini: ";
+			cin>>hari.tanggal;
+			if(hari.tanggal>30)
+				cout<<"Tanggal dalam bulan "<<hari.bulan<<" hanya sampai 30"<<endl<<endl;
+		} while(hari.tanggal>30);
+	}
+	else if(hari.bulan == "februari")
+	{
+		if((hari.tahun%4 == 0)&&(hari.tanggal>29))
+		{
+			cout<<"Tanggal dalam bulan februari tahun kabisat hanya sampai 29"<<endl;
+			do
+			{
+				cout<<"Masukan tanggal hari ini: ";
+				cin>>hari.tanggal;
+				if(hari.tanggal>29)
+					cout<<"Tanggal dalam bulan februari tahun kabisat hanya sampai 29"<<endl<<endl;
+			} while(hari.tanggal>29);
+		}
+		else if((hari.tahun%4 != 0)&&(hari.tanggal>28))
+		{
+			cout<<"Tanggal dalam bulan februari hanya sampai 28"<<endl;
+			do
+			{
+				cout<<"Masukan tanggal hari ini: ";
+				cin>>hari.tanggal;
+				if(hari.tanggal>28)
+					cout<<"Tanggal dalam bulan februari hanya sampai 28"<<endl<<endl;
+			} while(hari.tanggal>28);
+		}
+	}
+	cout<<endl<<endl;
+}
+
+void main()
+{
+	Hari_ini();
+}
