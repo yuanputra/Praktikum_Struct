@@ -117,10 +117,11 @@ bulanlagi:;
 	system("cls");
 	return hari;
 }
+kalender hari_ini;
 
 kalender Hari_esok()
 {
-	kalender hari = Hari_ini();
+	kalender hari = hari_ini;
 	int bulan=99;
 
 	if((hari.bulan == februari)&&(hari.kabisat == true))
@@ -214,7 +215,7 @@ void main()
 menu:;
 	int pilih;
 	cout<<"Menu Kalender : "<<endl<<endl;
-	cout<<"1. Hari ini"<<endl;
+	cout<<"1. Masukkan Hari ini"<<endl;
 	cout<<"2. Hari esok"<<endl;
 	cout<<"3. Keluar"<<endl<<endl;
 	cout<<"Pilih menu: ";
@@ -223,7 +224,7 @@ menu:;
 
 	if(pilih == 1)
 	{
-		Hari_ini();
+		hari_ini=Hari_ini();
 		goto menu;
 	}
 	else if(pilih == 2)
